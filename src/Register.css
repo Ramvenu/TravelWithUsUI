@@ -1,0 +1,154 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.register-container {
+  display: flex;
+  height: 100vh;
+  align-items: stretch;
+}
+
+/* LEFT SIDE */
+.left-panel {
+  position: relative;
+  width: 45%;
+  overflow: hidden;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.travel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  color: white;
+  padding: 40px;
+}
+
+.overlay h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.overlay p {
+  font-size: 1.1rem;
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+/* RIGHT SIDE */
+.right-panel {
+  width: 55%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f8f9fc;
+}
+
+.register-card {
+  width: 500px;
+  height: 100%;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+register-card input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #ffffff; /* White background */
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.register-card h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333333;
+}
+
+.register-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: none;
+  border-bottom: 2px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+  background-color: transparent;
+}
+
+.register-card input:focus {
+  border-color: #9c4dff;
+}
+
+.register-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  background: linear-gradient(90deg, #4facfe, #c850f7);
+  transition: 0.3s;
+}
+
+.register-btn:hover {
+  transform: translateY(-2px);
+}
+
+.login-link {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.login-link a {
+  text-decoration: none;
+  color: #9c4dff;
+  font-weight: 600;
+}
