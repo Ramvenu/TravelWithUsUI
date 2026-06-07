@@ -97,6 +97,7 @@ body {
 
 .input-group {
   margin-bottom: 8px;
+  position: relative;
 }
 
 .input-group label {
@@ -107,16 +108,38 @@ body {
   font-size: 13px;
 }
 
+.error-text {
+  position: absolute;
+  top: -18px;
+  right: 0;
+  color: #e74c3c;
+  font-size: 10px;
+  font-weight: 600;
+  background: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
 .input-box {
   display: flex;
   align-items: center;
   border-bottom: 2px solid #ddd;
   padding-bottom: 8px;
   transition: 0.3s;
+  position: relative;
+}
+
+.input-box.error {
+  border-bottom-color: #e74c3c;
 }
 
 .input-box:focus-within {
   border-bottom-color: #9c4dff;
+}
+
+.input-box:focus-within.error {
+  border-bottom-color: #e74c3c;
 }
 
 .input-box .icon {
