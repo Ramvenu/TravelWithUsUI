@@ -1,12 +1,7 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-body {
-  background: #f5f7fa;
+.home-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .home-navbar {
