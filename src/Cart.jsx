@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaTrash, FaArrowLeft, FaCheckCircle } from 'react-icons/fa';
 import { useCart } from './contexts/CartContext';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 const TOUR_FEE = 500;
 
@@ -18,41 +20,50 @@ function Cart() {
 
   if (booked) {
     return (
-      <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh', background: '#f5f7fa' }}>
-        <div className="text-center bg-white rounded-4 shadow p-5" style={{ maxWidth: '420px' }}>
-          <FaCheckCircle style={{ fontSize: '4rem', color: '#4facfe' }} className="mb-3" />
-          <h2 className="fw-bold mb-2" style={{ color: '#333' }}>Booking Confirmed!</h2>
-          <p style={{ color: '#666', fontSize: '14px' }}>
-            Your trip has been booked successfully. You'll receive a confirmation shortly.
-          </p>
-          <p style={{ color: '#999', fontSize: '12px' }}>Redirecting to home...</p>
+      <div style={{ minHeight: '100vh', background: '#f1f5f9' }}>
+        <Navbar activePage="cart" />
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '70vh' }}>
+          <div className="text-center bg-white rounded-4 shadow p-5" style={{ maxWidth: '420px' }}>
+            <FaCheckCircle style={{ fontSize: '4rem', color: '#0ea5e9' }} className="mb-3" />
+            <h2 className="fw-bold mb-2" style={{ color: '#333' }}>Booking Confirmed!</h2>
+            <p style={{ color: '#666', fontSize: '14px' }}>
+              Your trip has been booked successfully. You'll receive a confirmation shortly.
+            </p>
+            <p style={{ color: '#999', fontSize: '12px' }}>Redirecting to home...</p>
+          </div>
         </div>
+        <Footer />
       </div>
     );
   }
 
   if (cart.length === 0) {
     return (
-      <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh', background: '#f5f7fa' }}>
-        <div className="text-center bg-white rounded-4 shadow p-5" style={{ maxWidth: '380px' }}>
-          <div style={{ fontSize: '4rem' }} className="mb-3">🧳</div>
-          <h3 className="fw-semibold mb-2" style={{ color: '#333' }}>Your trip cart is empty</h3>
-          <p className="mb-4" style={{ color: '#666', fontSize: '13px' }}>Add places to start planning your trip!</p>
-          <Link to="/" className="btn btn-gradient px-4">EXPLORE PLACES</Link>
+      <div style={{ minHeight: '100vh', background: '#f1f5f9' }}>
+        <Navbar activePage="cart" />
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '70vh' }}>
+          <div className="text-center bg-white rounded-4 shadow p-5" style={{ maxWidth: '380px' }}>
+            <div style={{ fontSize: '4rem' }} className="mb-3">🧳</div>
+            <h3 className="fw-semibold mb-2" style={{ color: '#333' }}>Your trip cart is empty</h3>
+            <p className="mb-4" style={{ color: '#666', fontSize: '13px' }}>Add places to start planning your trip!</p>
+            <Link to="/" className="btn btn-gradient px-4">EXPLORE PLACES</Link>
+          </div>
         </div>
+        <Footer />
       </div>
     );
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f5f7fa' }}>
-      {/* Header */}
+    <div style={{ minHeight: '100vh', background: '#f1f5f9' }}>
+      <Navbar activePage="cart" />
+      {/* Page title bar */}
       <div className="bg-white shadow-sm px-4 py-3 d-flex align-items-center gap-3">
         <button className="btn btn-link p-0 link-accent" onClick={() => navigate('/')}>
           <FaArrowLeft />
         </button>
         <h5 className="mb-0 fw-semibold" style={{ color: '#333' }}>
-          My Trip Cart <span style={{ color: '#9c4dff', fontSize: '15px' }}>({totalItems} {totalItems === 1 ? 'place' : 'places'})</span>
+          My Trip Cart <span style={{ color: '#0284c7', fontSize: '15px' }}>({totalItems} {totalItems === 1 ? 'place' : 'places'})</span>
         </h5>
       </div>
 
@@ -139,6 +150,7 @@ function Cart() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

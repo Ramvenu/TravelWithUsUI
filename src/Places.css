@@ -180,6 +180,7 @@
   height: 210px;
   overflow: hidden;
   flex-shrink: 0;
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
 }
 
 .pcv2-img img {

@@ -1,25 +1,14 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import Footer from "./Footer";
 import {
-  FaShoppingCart, FaSignOutAlt, FaSignInAlt,
   FaStar, FaStarHalfAlt, FaRegStar,
   FaMapMarkerAlt, FaClock, FaTimes,
   FaCheckCircle, FaMinus, FaPlus,
   FaCalendarAlt, FaUsers, FaCheck,
 } from "react-icons/fa";
 import { useCart } from "./contexts/CartContext";
-import { useAuth } from "./contexts/AuthContext";
+import Navbar from "./Navbar";
 import "./Places.css";
-
-function Logo() {
-  return (
-    <svg width="50" height="50" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="45" fill="#0ea5e9" />
-      <path d="M50 15 L70 55 L50 85 L30 55 Z" fill="#ffffff" />
-      <circle cx="50" cy="50" r="10" fill="#f59e0b" />
-    </svg>
-  );
-}
 
 const CATEGORIES = ["All", "Monuments", "Devotional", "Nature", "Culture"];
 
@@ -30,12 +19,34 @@ const CAT_COLORS = {
   Culture:    { bg: "#dbeafe", text: "#1e40af", border: "#93c5fd" },
 };
 
+const W = (f) => `https://commons.wikimedia.org/wiki/Special:FilePath/${f}`;
+const CAT_ICONS = { Monuments:"🏛️", Devotional:"🛕", Nature:"🌿", Culture:"🎭" };
+const CAT_GRAD  = {
+  Monuments:"#92400e,#d97706", Devotional:"#831843,#db2777",
+  Nature:"#064e3b,#059669",    Culture:"#1e3a8a,#3b82f6",
+};
+function imgFallback(e, name, category) {
+  e.target.onerror = null;
+  const [c1,c2] = (CAT_GRAD[category]||"#0369a1,#0ea5e9").split(",");
+  const icon = CAT_ICONS[category]||"🗺️";
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/>
+    </linearGradient></defs>
+    <rect width="800" height="520" fill="url(%23g)"/>
+    <text x="400" y="210" text-anchor="middle" font-size="72" font-family="serif">${icon}</text>
+    <text x="400" y="295" text-anchor="middle" fill="white" font-size="26" font-weight="700" font-family="Arial,sans-serif">${name}</text>
+    <text x="400" y="334" text-anchor="middle" fill="rgba(255,255,255,0.72)" font-size="15" font-family="Arial,sans-serif">Hyderabad · ${category}</text>
+  </svg>`;
+  e.target.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
 const PLACES = [
   {
     id: 1, name: "Charminar", category: "Monuments",
     location: "Old City, Hyderabad", rating: 4.8, reviews: 12450,
     price: 1999, childPrice: 999, duration: "2–3 hrs", badge: "Most Popular",
-    image: "https://images.unsplash.com/photo-1588416499018-d0c6218c4b2c?w=800&h=520&fit=crop",
+    image: W("Charminar_at_Hyderabad_India.jpg"),
     desc: "The iconic 16th-century mosque — symbol of Hyderabad, built by Sultan Muhammad Quli Qutb Shah in 1591.",
     highlights: ["4 imposing minarets & arches", "Laad Bazaar bangle market", "Evening illumination show"],
     includes: ["Entry ticket", "Guided tour", "Audio guide"],
@@ -44,7 +55,7 @@ const PLACES = [
     id: 2, name: "Golconda Fort", category: "Monuments",
     location: "Ibrahim Bagh, Hyderabad", rating: 4.7, reviews: 9820,
     price: 2499, childPrice: 1199, duration: "3–4 hrs", badge: "Heritage Site",
-    image: "https://images.unsplash.com/photo-1599661046827-dacde6976549?w=800&h=520&fit=crop",
+    image: W("Golconda_fort_India.jpg"),
     desc: "A magnificent medieval citadel with a famous acoustic system, once the world's hub for diamond trade.",
     highlights: ["Acoustic clapping system", "Light & sound show nightly", "Panoramic city views"],
     includes: ["Entry ticket", "Guide", "Sound show pass"],
@@ -53,7 +64,7 @@ const PLACES = [
     id: 3, name: "Chowmahalla Palace", category: "Monuments",
     location: "Khilwat, Old City", rating: 4.6, reviews: 6230,
     price: 1799, childPrice: 899, duration: "2–3 hrs", badge: "",
-    image: "https://images.unsplash.com/photo-1477587458883-47145ed6736c?w=800&h=520&fit=crop",
+    image: W("Chowmahalla_Palace.jpg"),
     desc: "Opulent seat of the Asaf Jahi Nizams featuring baroque and Indo-Saracenic architecture.",
     highlights: ["Vintage royal car collection", "Magnificent Durbar Hall", "Pristine Mughal gardens"],
     includes: ["Entry ticket", "Guided tour", "Photography pass"],
@@ -62,7 +73,7 @@ const PLACES = [
     id: 4, name: "Birla Mandir", category: "Devotional",
     location: "Naubat Pahad Hill, Hyderabad", rating: 4.9, reviews: 15100,
     price: 499, childPrice: 0, duration: "1–2 hrs", badge: "Free for Children",
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=520&fit=crop",
+    image: W("Birla_Mandir_Hyderabad.jpg"),
     desc: "A stunning white Rajasthani marble Venkateswara temple perched on a hill with breathtaking city views.",
     highlights: ["Gleaming white marble architecture", "Hilltop panoramic views", "Serene meditation area"],
     includes: ["Entry ticket", "Prasadam", "Guided puja"],
@@ -71,7 +82,7 @@ const PLACES = [
     id: 5, name: "Chilkur Balaji Temple", category: "Devotional",
     location: "Chilkur, Hyderabad", rating: 4.8, reviews: 8720,
     price: 299, childPrice: 0, duration: "1–2 hrs", badge: "Visa Balaji",
-    image: "https://images.unsplash.com/photo-1545167622-3a6ac756afa4?w=800&h=520&fit=crop",
+    image: W("Chilkur_Balaji_Temple.jpg"),
     desc: "Known as the 'Visa Balaji' temple — millions visit this 500-year-old Vaishnava shrine for overseas blessings.",
     highlights: ["Ancient 500-year-old shrine", "No donation box policy", "Circumambulation ritual"],
     includes: ["Entry ticket", "Prasadam", "Guided darshan"],
@@ -80,7 +91,7 @@ const PLACES = [
     id: 6, name: "Mecca Masjid", category: "Devotional",
     location: "Charminar Area, Hyderabad", rating: 4.7, reviews: 7350,
     price: 199, childPrice: 0, duration: "1 hr", badge: "",
-    image: "https://images.unsplash.com/photo-1564769662533-4f00a87b4056?w=800&h=520&fit=crop",
+    image: W("Mecca_Masjid_Hyderabad.jpg"),
     desc: "One of India's oldest and largest mosques built in 1694 — bricks from Mecca were used in the central arch.",
     highlights: ["Bricks sourced from Mecca", "Capacity 10,000 worshippers", "15 arches of granite"],
     includes: ["Entry ticket", "Guided tour", "Heritage walk"],
@@ -89,7 +100,7 @@ const PLACES = [
     id: 7, name: "Hussain Sagar Lake", category: "Nature",
     location: "Tank Bund Road, Hyderabad", rating: 4.5, reviews: 18920,
     price: 999, childPrice: 499, duration: "2–3 hrs", badge: "Family Favourite",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=520&fit=crop",
+    image: W("Hussain_Sagar.jpg"),
     desc: "A heart-shaped lake from 1562, home to the iconic 18-metre monolithic Buddha statue on Rock of Gibraltar island.",
     highlights: ["Giant Buddha statue island", "Speed boat & cruise rides", "Lumbini Park & NTR Garden"],
     includes: ["Entry ticket", "Boat ride", "Park access"],
@@ -98,7 +109,7 @@ const PLACES = [
     id: 8, name: "KBR National Park", category: "Nature",
     location: "Jubilee Hills, Hyderabad", rating: 4.6, reviews: 5410,
     price: 599, childPrice: 299, duration: "2–3 hrs", badge: "Eco Retreat",
-    image: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&h=520&fit=crop",
+    image: W("KBR_National_Park_Hyderabad.jpg"),
     desc: "A 390-acre urban forest and biodiversity reserve in the heart of the city, perfect for trekking and bird watching.",
     highlights: ["600+ plant species", "100+ bird species", "Morning trek trails"],
     includes: ["Entry pass", "Nature guide", "Trail map"],
@@ -107,7 +118,7 @@ const PLACES = [
     id: 9, name: "Nehru Zoological Park", category: "Nature",
     location: "Mir Alam Tank Road, Hyderabad", rating: 4.4, reviews: 11200,
     price: 1299, childPrice: 649, duration: "4–5 hrs", badge: "",
-    image: "https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=800&h=520&fit=crop",
+    image: W("Nehru_Zoological_Park.jpg"),
     desc: "One of India's largest zoos spanning 380 acres with 1,500+ animals including tigers, lions, and elephants.",
     highlights: ["Tiger & lion safari zone", "Butterfly park", "Toy train ride"],
     includes: ["Entry ticket", "Safari pass", "Butterfly park"],
@@ -116,7 +127,7 @@ const PLACES = [
     id: 10, name: "Salar Jung Museum", category: "Culture",
     location: "Dar-ul-Shifa, Hyderabad", rating: 4.7, reviews: 9340,
     price: 1799, childPrice: 899, duration: "3–4 hrs", badge: "National Museum",
-    image: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=800&h=520&fit=crop",
+    image: W("Salar_Jung_Museum.jpg"),
     desc: "One of three National Museums of India, housing Nawab Salar Jung III's extraordinary private collection of art.",
     highlights: ["Famous Musical Clock hourly show", "Veiled Rebecca marble sculpture", "Priceless jade collection"],
     includes: ["Entry ticket", "Audio guide", "Museum booklet"],
@@ -125,7 +136,7 @@ const PLACES = [
     id: 11, name: "Ramoji Film City", category: "Culture",
     location: "Hayathnagar, Hyderabad", rating: 4.8, reviews: 22100,
     price: 3499, childPrice: 1749, duration: "Full Day", badge: "Guinness Record",
-    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&h=520&fit=crop",
+    image: W("Ramoji_Film_City.jpg"),
     desc: "World's largest integrated film studio complex (certified by Guinness), spanning 1666 acres with themed zones.",
     highlights: ["50+ live shows daily", "Bollywood studio set tours", "1666-acre entertainment campus"],
     includes: ["Full-day pass", "Live shows", "Studio tours", "Transfers"],
@@ -134,7 +145,7 @@ const PLACES = [
     id: 12, name: "Laad Bazaar", category: "Culture",
     location: "Near Charminar, Hyderabad", rating: 4.5, reviews: 6800,
     price: 799, childPrice: 399, duration: "2–3 hrs", badge: "",
-    image: "https://images.unsplash.com/photo-1566604008577-ff1a2b8e0e94?w=800&h=520&fit=crop",
+    image: W("Laad_Bazaar.jpg"),
     desc: "A 400-year-old street bazaar near Charminar, dazzling with lacquer bangles, pearls, bridal wear, and street food.",
     highlights: ["Famous lacquer bangle shops", "Pearl & gold jewellery", "Traditional Hyderabadi street food"],
     includes: ["Shopping tour guide", "Tasting walk", "Transport"],
@@ -156,9 +167,7 @@ function StarRating({ rating }) {
 const today = new Date().toISOString().split("T")[0];
 
 export default function Places() {
-  const navigate = useNavigate();
-  const { cart, addToCart, totalItems } = useCart();
-  const { user, logout } = useAuth();
+  const { cart, addToCart } = useCart();
 
   const [activeCategory, setActiveCategory] = useState("All");
   const [bookingPlace, setBookingPlace] = useState(null);
@@ -214,37 +223,7 @@ export default function Places() {
     <div className="places-wrapper">
 
       {/* ── Navbar ── */}
-      <nav className="home-navbar">
-        <div className="brand" style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
-          <Logo />
-          <div><h2>HydVista</h2><p>Explore Hyderabad</p></div>
-        </div>
-        <div className="menu d-flex align-items-center gap-2 gap-md-3">
-          <button onClick={() => navigate("/")}        className="menu-btn">Home</button>
-          <button onClick={() => navigate("/places")}  className="menu-btn nav-active">Places</button>
-          <button onClick={() => navigate("/gallery")} className="menu-btn">Gallery</button>
-          <button onClick={() => navigate("/contact")} className="menu-btn">Contact</button>
-          <button className="cart-icon-btn" onClick={() => navigate("/cart")} title="My Trip Cart">
-            <FaShoppingCart />
-            {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
-          </button>
-          {user ? (
-            <div className="d-flex align-items-center gap-2">
-              <span style={{ fontSize: "13px", color: "#555", fontWeight: 500 }}>
-                Hi, {user.username || user.phone || "User"}
-              </span>
-              <button className="menu-btn d-flex align-items-center gap-1"
-                onClick={() => { logout(); navigate("/login"); }}>
-                <FaSignOutAlt /> Logout
-              </button>
-            </div>
-          ) : (
-            <button className="login-nav-btn" onClick={() => navigate("/login")}>
-              <FaSignInAlt className="me-1" /> Login
-            </button>
-          )}
-        </div>
-      </nav>
+      <Navbar activePage="places" />
 
       {/* ── Hero ── */}
       <section className="places-hero">
@@ -294,7 +273,7 @@ export default function Places() {
 
                 {/* Image */}
                 <div className="pcv2-img">
-                  <img src={place.image} alt={place.name} loading="lazy" />
+                  <img src={place.image} alt={place.name} loading="lazy" onError={(e) => imgFallback(e, place.name, place.category)} />
                   <span className="pcv2-cat-badge" style={{ background: col.bg, color: col.text, border: `1px solid ${col.border}` }}>
                     {place.category}
                   </span>
@@ -374,7 +353,7 @@ export default function Places() {
               <>
                 {/* Modal header image */}
                 <div className="bk-header">
-                  <img src={bookingPlace.image} alt={bookingPlace.name} />
+                  <img src={bookingPlace.image} alt={bookingPlace.name} onError={(e) => imgFallback(e, bookingPlace.name, bookingPlace.category)} />
                   <div className="bk-header-overlay">
                     <span className="bk-cat" style={{ background: CAT_COLORS[bookingPlace.category].bg, color: CAT_COLORS[bookingPlace.category].text }}>
                       {bookingPlace.category}
@@ -490,11 +469,7 @@ export default function Places() {
         </div>
       )}
 
-      {/* ── Footer ── */}
-      <footer>
-        <h3>HydVista Tourism</h3>
-        <p>Experience the heritage and beauty of Hyderabad.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

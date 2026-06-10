@@ -1,29 +1,14 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import Footer from "./Footer";
 import {
-  FaShoppingCart, FaSignOutAlt, FaSignInAlt,
   FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock,
   FaFacebookF, FaTwitter, FaInstagram, FaYoutube,
   FaPaperPlane, FaCheckCircle,
 } from "react-icons/fa";
-import { useCart } from "./contexts/CartContext";
-import { useAuth } from "./contexts/AuthContext";
+import Navbar from "./Navbar";
 import "./Contact.css";
 
-function Logo() {
-  return (
-    <svg width="50" height="50" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="45" fill="#0ea5e9" />
-      <path d="M50 15 L70 55 L50 85 L30 55 Z" fill="#ffffff" />
-      <circle cx="50" cy="50" r="10" fill="#f59e0b" />
-    </svg>
-  );
-}
-
 export default function Contact() {
-  const navigate = useNavigate();
-  const { totalItems } = useCart();
-  const { user, logout } = useAuth();
 
   const [formData, setFormData] = useState({
     name: "", email: "", phone: "", subject: "", message: "",
@@ -63,43 +48,7 @@ export default function Contact() {
     <div className="contact-wrapper">
 
       {/* ── Navbar ── */}
-      <nav className="home-navbar">
-        <div className="brand" style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
-          <Logo />
-          <div>
-            <h2>HydVista</h2>
-            <p>Explore Hyderabad</p>
-          </div>
-        </div>
-
-        <div className="menu d-flex align-items-center gap-2 gap-md-3">
-          <button onClick={() => navigate("/")}        className="menu-btn">Home</button>
-          <button onClick={() => navigate("/places")}  className="menu-btn">Places</button>
-          <button onClick={() => navigate("/gallery")} className="menu-btn">Gallery</button>
-          <button onClick={() => navigate("/contact")} className="menu-btn nav-active">Contact</button>
-
-          <button className="cart-icon-btn" onClick={() => navigate("/cart")} title="My Trip Cart">
-            <FaShoppingCart />
-            {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
-          </button>
-
-          {user ? (
-            <div className="d-flex align-items-center gap-2">
-              <span style={{ fontSize: "13px", color: "#555", fontWeight: 500 }}>
-                Hi, {user.username || user.phone || "User"}
-              </span>
-              <button className="menu-btn d-flex align-items-center gap-1"
-                onClick={() => { logout(); navigate("/login"); }}>
-                <FaSignOutAlt /> Logout
-              </button>
-            </div>
-          ) : (
-            <button className="login-nav-btn" onClick={() => navigate("/login")}>
-              <FaSignInAlt className="me-1" /> Login
-            </button>
-          )}
-        </div>
-      </nav>
+      <Navbar activePage="contact" />
 
       {/* ── Hero Banner ── */}
       <section className="contact-hero">
@@ -258,11 +207,7 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* ── Footer ── */}
-      <footer>
-        <h3>HydVista Tourism</h3>
-        <p>Experience the heritage and beauty of Hyderabad.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

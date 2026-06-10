@@ -1,0 +1,461 @@
+/* ══════════════════════════════════════════
+   HYDVISTA NAVBAR — "Explorer Command Bar"
+   Dark midnight top + capsule-pill nav strip
+══════════════════════════════════════════ */
+
+.nx-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+}
+
+/* ═══════ ROW 1 — Dark Command Bar ═══════ */
+.nx-bar {
+  background: #0b1f3a;
+  padding: 10px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  /* Thin gold accent at the bottom */
+  border-bottom: 2px solid #d97706;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+}
+
+/* ── LEFT ── */
+.nx-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.nx-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 5px 10px 5px 6px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.15s, border-color 0.15s;
+}
+.nx-logo:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(249, 158, 11, 0.4);
+}
+
+.nx-brand-block { line-height: 1.15; }
+
+.nx-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  letter-spacing: 1.5px;
+}
+.nx-b-hyd {
+  font-size: 20px;
+  font-weight: 900;
+  color: #ffffff;
+}
+.nx-b-vista {
+  font-size: 20px;
+  font-weight: 900;
+  color: #f59e0b;
+}
+
+.nx-tagline {
+  display: block;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.38);
+  letter-spacing: 0.22em;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* ── CENTRE ── */
+.nx-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Destination pill */
+.nx-dest {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+  padding: 7px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.nx-dest:hover {
+  border-color: rgba(249, 158, 11, 0.55);
+  background: rgba(249, 158, 11, 0.06);
+}
+
+.nx-pin { color: #f59e0b; font-size: 15px; flex-shrink: 0; }
+
+.nx-dest-label {
+  display: block;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.nx-dest-sel {
+  display: block;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+}
+.nx-dest-sel option { color: #1e293b; background: #fff; }
+
+/* ── Floating Search Pill ── */
+.nx-search {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  height: 46px;
+  border-radius: 32px;
+  overflow: hidden;
+  background: #ffffff;
+  /* Glow on dark background makes it visually "float" */
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.22), 0 6px 24px rgba(0, 0, 0, 0.35);
+  transition: box-shadow 0.2s;
+}
+.nx-search:focus-within {
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.6), 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.nx-search-cat {
+  background: #f1f5f9;
+  border: none;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  outline: none;
+  border-right: 1.5px solid #e2e8f0;
+  flex-shrink: 0;
+  min-width: 96px;
+}
+.nx-search-cat:hover { background: #e2e8f0; }
+
+.nx-search-rule {
+  width: 1px;
+  background: #e2e8f0;
+  flex-shrink: 0;
+  display: none;
+}
+
+.nx-search-input {
+  flex: 1;
+  border: none;
+  padding: 0 16px;
+  font-size: 15px;
+  color: #1e293b;
+  background: transparent;
+  outline: none;
+  min-width: 0;
+}
+.nx-search-input::placeholder { color: #94a3b8; }
+
+/* Amber/gold search button — unique accent */
+.nx-search-btn {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border: none;
+  padding: 0 22px;
+  color: #0b1f3a;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.nx-search-btn:hover  { opacity: 0.88; }
+.nx-search-btn:active { opacity: 0.72; }
+
+/* ── RIGHT ── */
+.nx-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Cart button */
+.nx-cart {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: background 0.15s, border-color 0.15s;
+}
+.nx-cart:hover {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.5);
+  color: #f59e0b;
+}
+
+.nx-cart-ico {
+  position: relative;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.nx-cart-dot {
+  position: absolute;
+  top: -7px;
+  right: -8px;
+  background: #f59e0b;
+  color: #0b1f3a;
+  font-size: 10px;
+  font-weight: 900;
+  min-width: 17px;
+  height: 17px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+}
+
+.nx-cart-txt { font-size: 13px; }
+
+/* Sign-in button */
+.nx-signin {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border: none;
+  color: #0b1f3a;
+  cursor: pointer;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  transition: opacity 0.15s, transform 0.12s;
+  box-shadow: 0 2px 10px rgba(217, 119, 6, 0.45);
+}
+.nx-signin:hover  { opacity: 0.88; transform: translateY(-1px); }
+.nx-signin:active { transform: scale(0.97); }
+.nx-signin svg { font-size: 16px; }
+
+.nx-signin-txt { line-height: 1.2; text-align: left; }
+.nx-signin-txt small  { display: block; font-size: 9px; font-weight: 400; opacity: 0.75; }
+.nx-signin-txt strong { display: block; font-size: 13px; font-weight: 800; }
+
+/* Logged-in user */
+.nx-user {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.nx-user-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+}
+.nx-logout {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: #f59e0b;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+}
+.nx-logout:hover { color: #fbbf24; }
+
+/* ═══════ ROW 2 — Capsule Pill Nav Strip ═══════ */
+.nx-strip {
+  background: #122840;
+  display: flex;
+  align-items: center;
+  padding: 6px 20px;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* Amber accent line at the very bottom */
+  border-bottom: 2px solid rgba(217, 119, 6, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+.nx-strip::-webkit-scrollbar { display: none; }
+
+/* Group wrapper keeps items together */
+.nx-strip-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* Vertical separator between groups */
+.nx-stripe {
+  width: 1px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+  margin: 0 4px;
+}
+
+/* Capsule pill buttons — default */
+.nx-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.78);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
+}
+.nx-pill:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+.nx-pill:active { transform: translateY(0); }
+
+/* Active pill — inverted (white bg, dark text) */
+.nx-pill-on {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #0b1f3a !important;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.25);
+}
+.nx-pill-on:hover { transform: none; }
+
+/* Category pills — slightly different style */
+.nx-pill-cat {
+  background: rgba(255, 255, 255, 0.05);
+  border-style: dashed;
+}
+.nx-pill-cat:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-style: solid;
+}
+
+/* Colored dot indicator inside category pills */
+.nx-cat-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ═══════ Responsive ═══════ */
+@media (max-width: 1024px) {
+  .nx-dest { display: none; }
+}
+@media (max-width: 720px) {
+  .nx-bar         { padding: 8px 12px; gap: 10px; }
+  .nx-brand-block { display: none; }
+  .nx-search-cat  { display: none; }
+  .nx-search-rule { display: none; }
+  .nx-cart-txt    { display: none; }
+  .nx-user-name   { display: none; }
+  .nx-signin-txt  { display: none; }
+  .nx-signin      { padding: 8px 10px; }
+}
+
+/* ═══════ Legacy class aliases (used by Home.css, Places pages) ═══════ */
+.menu-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: #334155;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+}
+.menu-btn:hover { background: #f0f9ff; color: #0284c7; }
+.nav-active     { color: #0284c7 !important; }
+
+.cart-icon-btn {
+  position: relative;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #334155;
+  padding: 6px 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+}
+.cart-icon-btn:hover { background: #f0f9ff; color: #0284c7; }
+
+.cart-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #f59e0b;
+  color: #0b1f3a;
+  font-size: 10px;
+  font-weight: 900;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+}
+
+.login-nav-btn {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #0b1f3a;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.15s;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.35);
+}
+.login-nav-btn:hover { opacity: 0.88; }

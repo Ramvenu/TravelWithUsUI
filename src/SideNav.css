@@ -1,0 +1,279 @@
+/* ═══════════════════════════════════════════
+   HYDVISTA SIDE NAV — "Explorer Accordion"
+   Dark navy · Accordion style · Gold accents
+   Completely different from sliding-panel designs
+═══════════════════════════════════════════ */
+
+/* ── Trigger button (shown inside the dark navbar) ── */
+.snav-trigger {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  padding: 8px 13px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.snav-trigger:hover {
+  background: rgba(245, 158, 11, 0.18);
+  border-color: rgba(245, 158, 11, 0.5);
+  color: #f59e0b;
+}
+
+.snav-trigger-icon { font-size: 18px; }
+.snav-trigger-txt  { font-size: 14px; }
+
+/* ── Backdrop ── */
+.snav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(2px);
+  z-index: 1100;
+  animation: snavFadeIn 0.22s ease;
+}
+@keyframes snavFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Drawer ── */
+.snav-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: min(380px, 90vw);
+  height: 100dvh;
+  background: #0b1f3a;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-110%);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 8px 0 40px rgba(0, 0, 0, 0.55);
+}
+.snav-drawer-open {
+  transform: translateX(0);
+}
+
+/* ── Header ── */
+.snav-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  background: #122840;
+  border-bottom: 2px solid #d97706;
+  flex-shrink: 0;
+}
+
+.snav-head-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.snav-head-compass {
+  font-size: 30px;
+  line-height: 1;
+}
+
+.snav-head-text { line-height: 1.25; }
+
+.snav-head-name {
+  display: block;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+/* "Vista" part in amber */
+.snav-head-name::after {
+  content: "";
+}
+
+.snav-head-sub {
+  display: block;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.snav-close-btn {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 7px 9px;
+  border-radius: 8px;
+  line-height: 1;
+  transition: background 0.15s, color 0.15s;
+}
+.snav-close-btn:hover {
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+/* ── Scrollable body ── */
+.snav-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0 16px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245, 158, 11, 0.3) transparent;
+}
+.snav-scroll::-webkit-scrollbar       { width: 4px; }
+.snav-scroll::-webkit-scrollbar-thumb { background: rgba(245,158,11,0.3); border-radius: 4px; }
+
+/* ── Section ── */
+.snav-section {
+  padding: 10px 0 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.snav-section:last-child { border-bottom: none; }
+
+.snav-section-title {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  padding: 4px 18px 10px;
+  border-left: 3px solid;      /* color set inline from accent */
+  margin: 0 0 2px 18px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* ── Accordion item group ── */
+.snav-item-group { display: flex; flex-direction: column; }
+
+/* ── Item button (shared for expandable + leaf) ── */
+.snav-item {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  padding: 12px 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s;
+  border-left: 3px solid transparent;
+}
+.snav-item:hover {
+  background: rgba(245, 158, 11, 0.09);
+  border-left-color: rgba(245, 158, 11, 0.5);
+}
+
+/* Open / active state */
+.snav-item-active {
+  background: rgba(245, 158, 11, 0.12) !important;
+  border-left-color: #f59e0b !important;
+}
+
+.snav-item-icon {
+  font-size: 20px;
+  width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.snav-item-label {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+  color: #e2e8f0;
+  line-height: 1.3;
+}
+
+/* Animated chevron */
+.snav-chevron {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 13px;
+  flex-shrink: 0;
+  transition: transform 0.25s ease, color 0.15s;
+}
+.snav-chevron-up {
+  transform: rotate(-180deg);
+  color: #f59e0b;
+}
+
+/* ── Accordion body (CSS grid animation — no max-height jank) ── */
+.snav-acc-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+.snav-acc-open {
+  grid-template-rows: 1fr;
+}
+.snav-acc-inner {
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.2);
+  border-left: 2px solid rgba(245, 158, 11, 0.25);
+  margin-left: 28px;
+}
+
+/* ── Sub-group (heading + links) ── */
+.snav-sub-group {
+  padding: 8px 0 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+.snav-sub-group:last-child { border-bottom: none; }
+
+.snav-sub-heading {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245, 158, 11, 0.75);
+  padding: 6px 16px 4px;
+}
+
+.snav-link {
+  display: block;
+  width: 100%;
+  padding: 7px 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.62);
+  cursor: pointer;
+  transition: color 0.12s, background 0.12s;
+  line-height: 1.4;
+}
+.snav-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Footer ── */
+.snav-foot {
+  flex-shrink: 0;
+  padding: 12px 18px;
+  background: #060f1d;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.28);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .snav-drawer   { width: 100vw; }
+  .snav-trigger-txt { display: none; }
+}
